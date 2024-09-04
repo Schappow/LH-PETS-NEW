@@ -1,0 +1,24 @@
+using Microsoft.AspNetCore.Mvc;
+using LHPet.Models;
+using LHPet.Data;
+
+namespace LHPet.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly LHPetDbContext _context;
+
+        public HomeController(LHPetDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            var clientes = _context.Clientes.ToList();
+            var fornecedores = _context.Fornecedores.ToList();
+
+            return View(clientes, fornecedores);
+        }
+    }
+}

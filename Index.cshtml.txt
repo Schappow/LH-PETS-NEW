@@ -1,0 +1,23 @@
+@model IEnumerable<LHPet.Models.Cliente>
+
+<h1>Clientes</h1>
+
+<ul>
+    @foreach (var cliente in Model)
+    {
+        <li>
+            @cliente.Nome (@cliente.Endereco)
+        </li>
+    }
+</ul>
+
+<h1>Fornecedores</h1>
+
+<ul>
+    @foreach (var fornecedor in ViewBag.Fornecedores)
+    {
+        <li>
+            @fornecedor.Nome (@fornecedor.Endereco)
+        </li>
+    }
+</ul>

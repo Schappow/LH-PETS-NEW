@@ -1,0 +1,57 @@
+using Microsoft.AspNetCore.Mvc;
+using LHPet.Models;
+using LHPet.Data;
+
+namespace LHPet.Controllers
+{
+    public class ClienteController : Controller
+    {
+        private readonly LHPetDbContext _context;
+
+        public ClienteController(LHPetDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            var clientes = _context.Clientes.ToList();
+            return View(clientes);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Cliente cliente)
+        {
+            _context.Clientes.Add(cliente);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var cliente = _context.Clientes.Find(id);
+            return View(cliente);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Cliente cliente)
+        {
+            _context.Clientes.Update(cliente);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var cliente = _context.Clientes.Find(id);
+            _context.Clientes.Remove(cliente);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+    }
+}

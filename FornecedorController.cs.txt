@@ -1,0 +1,32 @@
+using Microsoft.AspNetCore.Mvc;
+using LHPet.Models;
+using LHPet.Data;
+
+namespace LHPet.Controllers
+{
+    public class FornecedorController : Controller
+    {
+        private readonly LHPetDbContext _context;
+
+        public FornecedorController(LHPetDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            var fornecedores = _context.Fornecedores.ToList();
+            return View(fornecedores);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Fornecedor fornecedor)
+        {
+            _context.Fornecedores.Add(fornecedor);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
